@@ -12,11 +12,7 @@ const BookType = new GraphQLObjectType({
         id: { type : GraphQLID },
         title: { type: GraphQLString },
         pub_date: {type: GraphQLString},
-        author: { type: AuthorType,
-        resolve(){
-
-            }
-        }
+        authors: { type: new GraphQLList(AuthorType)}
     })
 })
 
