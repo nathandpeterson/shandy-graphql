@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node main",
-    "dev": "node nodemon"
+    "dev": "nodemon main",
+    "knex": "knex",
+    "refresh": "dropdb pod_dev && createdb pod_dev",
+    "reseed": "knex migrate:latest && knex seed:run"
   },
   "keywords": [],
   "author": "",
