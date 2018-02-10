@@ -14,6 +14,22 @@ const AuthorModel = require('../../models/AuthorModel')
 module.exports = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: () => ({
+
+        authors: {
+            type: new GraphQLList(AuthorType),
+            resolve(parentValue, args) {
+                return AuthorModel.getAll()
+            }
+        },
+        author: {
+            type: AuthorType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID)},
+            },
+            resolve(parentValue, {id} ){
+                return AuthorModel.getOne(id)
+            }   
+        },
         books: {
             type: new GraphQLList(BookType),
             resolve(parentValue){
@@ -29,20 +45,6 @@ module.exports = new GraphQLObjectType({
                 return BookModel.getOne(id)
             }
         },
-        authors: {
-            type: new GraphQLList(AuthorType),
-            resolve(parentValue, args) {
-                return AuthorModel.getAll()
-            }
-        },
-        author: {
-            type: AuthorType,
-            args: {
-                id: { type: new GraphQLNonNull(GraphQLID)}
-            },
-            resolve(parentValue, {id} ){
-                return AuthorModel.getOne(id)
-            }   
-        }
+     
     })
 })

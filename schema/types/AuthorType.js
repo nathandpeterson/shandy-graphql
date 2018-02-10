@@ -4,7 +4,7 @@ const { GraphQLObjectType,
         GraphQLString,
         GraphQLID } = require('graphql')
 
-const BookType = require('./BookType')
+const BookType = require('./BookType') 
 
 const AuthorType = new GraphQLObjectType({
     name: 'AuthorType',
@@ -12,8 +12,10 @@ const AuthorType = new GraphQLObjectType({
         id: { type : GraphQLID },
         first_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
-        // books: { type: new GraphQLList(BookType)},
+
+        // crashes when I try to load in the booktype
+        books: { type: new GraphQLList(require('./BookType'))},
     })
 })
 
-module.exports = AuthorType
+module.exports = AuthorType 

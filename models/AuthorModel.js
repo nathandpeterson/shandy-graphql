@@ -13,12 +13,13 @@ class AuthorModel {
                 const bookIds = joinInfo.map(data => data.book_id)
                 const bookPromises = []
                 bookIds.forEach(id => {
-                    const promise = db('books').where({id})
+                    const promise = db('books').where({id}).first()
                     bookPromises.push(promise)
                 })
                 return Promise.all(bookPromises)
                 .then(books => {
                     authorInfo.books = books
+                    console.log(authorInfo)
                     return authorInfo
                 })
                 

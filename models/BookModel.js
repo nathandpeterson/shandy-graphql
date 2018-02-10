@@ -6,7 +6,6 @@ class BookModel {
         return db('books')
     }
     static getOne(id){
-        console.log('in Modek', id)
         return db('books').where({id}).first()
        .then(bookInfo => {
             return db('author_book').where({book_id: id}).first()
@@ -14,6 +13,7 @@ class BookModel {
                 return db('authors').where({id: joinInfo.author_id})
                     .then(authorInfo => {
                        bookInfo.authors = authorInfo
+                       console.log(bookInfo)
                        return bookInfo
                     })
             })
