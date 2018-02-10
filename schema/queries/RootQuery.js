@@ -41,7 +41,7 @@ module.exports = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLID)}
             },
             resolve(parentValue, {id} ){
-                return BookModel.getOne(id)
+                return AuthorModel.getOne(id)
             }   
         }
     })

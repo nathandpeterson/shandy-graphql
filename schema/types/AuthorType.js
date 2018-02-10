@@ -5,8 +5,6 @@ const { GraphQLObjectType,
         GraphQLID } = require('graphql')
 
 const BookType = require('./BookType')
-const BookModel = require('../../models/BookModel')
-
 
 const AuthorType = new GraphQLObjectType({
     name: 'AuthorType',
@@ -14,12 +12,7 @@ const AuthorType = new GraphQLObjectType({
         id: { type : GraphQLID },
         first_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
-        // books: { type: new GraphQLList(BookType), 
-        //     resolve(parentValue, args){
-        //         console.log(parentValue, args)
-        //         return BookModel.getAll()
-        //     }
-        // }
+        // books: { type: new GraphQLList(BookType)},
     })
 })
 
