@@ -12,8 +12,7 @@ const AuthorType = new GraphQLObjectType({
         id: { type : GraphQLID },
         first_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
-
-        // crashes when I try to load in the booktype
+        image_URL: { type: GraphQLString },
         books: { type: new GraphQLList(require('./BookType'))},
     })
 })
