@@ -1,10 +1,10 @@
 const graphql = require('graphql')
-const { GraphQLObjectType, 
+const { GraphQLObjectType,
         GraphQLList,
         GraphQLString,
         GraphQLID } = require('graphql')
 
-const BookType = require('./BookType') 
+const BookType = require('./BookType')
 
 const AuthorType = new GraphQLObjectType({
     name: 'AuthorType',
@@ -17,4 +17,4 @@ const AuthorType = new GraphQLObjectType({
     })
 })
 
-module.exports = AuthorType 
+module.exports = AuthorType

@@ -1,10 +1,18 @@
 const Promise = require('bluebird')
 const fs = Promise.promisifyAll(require('fs'))
-const txt = require('txt')
 
 class TextModel {
-  static async getOneText(path){
-    return await fs.readFileSync(path, 'utf-8')
+  static getOneText(path){
+    return fs.readFileSync(path, 'utf-8')
+  }
+
+  static async getFragment(path, paragraphNumber){
+    // Returns a promise that returns a specified paragraph number
+    return this.getOneText(path)
+      .then(text => {
+        const paragraphs = this.breakIntoParagraphs(text)
+        return paragraphs[paragraphNumber]
+      })
   }
   static breakIntoParagraphs(text){
     const lines = text.split('\n')
@@ -44,11 +52,11 @@ class TextModel {
     }
     return wordFrequency
   }
-  static createMultipleFrequencies(...paragraphs){
+  static createMultipleFrequencies(paragraphs){
     // Takes an indeterminate amount of paragraphs and returns a word frequency object for all paragraphs
     const wordFrequency = {}
     paragraphs.forEach(paragraph => {
-      let p_freq = this.createOneFrequency(paragraph)
+      let p_freq = this.createOneFrequency([paragraph])
       let p_keys = Object.keys(p_freq)
       p_keys.forEach(key => {
         (!wordFrequency[key]) ? wordFrequency[key] = p_freq[key] :
@@ -57,11 +65,28 @@ class TextModel {
     })
     return wordFrequency
   }
+  static returnFrequencies(filepath, start, end){
+    // takes a filepath and an array of paragraph indexes
+    const text = this.getOneText('../texts/mrs_dalloway.txt')
+        console.log(text);
+        const allParagraphs = this.breakIntoParagraphs(text)
+        const selectedParagraphs = []
+        for(let i = start; i <= end; i++){
+          selectedParagraphs.push(allParagraphs[i])
+        }
+        console.log(selectedParagraphs);
+        return this.createMultipleFrequencies(selectedParagraphs)
+
+  }
 }
 
+module.exports = TextModel
 
+//
 // TextModel.getOneText('../texts/mrs_dalloway.txt')
 //   .then(text => {
 //       const paragraphs = TextModel.breakIntoParagraphs(text)
-//       TextModel.createMultipleFrequencies(paragraphs[2], paragraphs[3])
+//       const freq = TextModel.createMultipleFrequencies(paragraphs[3], paragraphs[4])
+//       console.log(freq);
+//       return freq
 // })

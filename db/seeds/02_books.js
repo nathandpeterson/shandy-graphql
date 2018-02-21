@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
         { id: 2,
           title: 'Mrs. Dalloway',
           pub_year: '1925',
-          file: ''},
+          file: '../texts/mrs_dalloway.txt'},
         { id: 3,
           title: 'The Life and Opinions of Tristram Shandy, Gentleman',
           pub_year: '1761-1767'},
